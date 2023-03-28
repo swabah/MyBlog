@@ -27,8 +27,8 @@ function CreatePost({IsAuth}) {
   }, []);
 
   return (
-    <div className='w-full h-full flex items-center justify-center p-20'>
-       <div className='p-12 rounded border w-[600px] h-full'>
+    <div className='w-full h-full flex items-center justify-center py-20'>
+       <div className='p-5 lg:p-12 rounded border w-[600px] h-full'>
         <div className='w-full h-auto flex flex-col items-start'>
           <label htmlFor="name" className='drop-shadow-md text-lg font-semibold '>Heading</label>
           <input type="text" required onChange={(e)=>setHeading(e.target.value)} placeholder='Type Here' className=' ring-1 mt-1 focus:ring-gray-200 focus:ring-2 ring-gray-100 rounded border-none w-full outline-none'/>
