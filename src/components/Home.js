@@ -12,7 +12,7 @@ function Home({IsAuth}) {
   useEffect(() => {
    const getPosts = async ()=>{
     const post = await getDocs(postsCollectionRef)
-    setPostLists(post.docs.map((doc)=>({...doc.post(), id : doc.id})))
+    setPostLists(post.docs.map((doc)=>({...doc.data(), id : doc.id})))
    }
    getPosts()
   }, []);
