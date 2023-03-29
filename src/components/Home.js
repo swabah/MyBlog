@@ -1,10 +1,10 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { db } from '../Firebase/firbase-config';
+import { auth, db } from '../Firebase/firbase-config';
 import {FaBitbucket, FaPlus} from 'react-icons/fa'
 
-function Home() {
+function Home({IsAuth}) {
   const [PostLists,setPostLists] = useState([])
 
 
@@ -17,15 +17,22 @@ function Home() {
    getPosts()
   }, []);
 
+  const deletPost = async (id) =>{
+    const postDoc = doc(db,'posts',id)
+    await deleteDoc(postDoc)
+  }
   return (
-    <div className='w-full h-full mx-auto space-y-5 lg:space-y-12 pt-6 md:pt-12 container flex flex-col items-center justify-center px-3'>
+    <div className='w-full h-full mx-auto space-y-4 lg:space-y-8 py-6 md:py-12 container flex flex-col items-center justify-center px-3'>
       {PostLists.map((data)=>(
         <div className='w-full md:w-[600px] h-auto border rounded-md drop-shadow-xl shadow-md'>
           <nav className='flex p-2 md:p-3 rounded-t-md bg-black text-white font-semibold items-center justify-between'>
             <Link to='/createpost'>
-            <h2 className='cursor-pointer font-light'><FaPlus/></h2>
+            <div className='cursor-pointer font-light'><FaPlus/></div>
             </Link>
-            <h2><FaBitbucket/></h2>
+            {IsAuth && data.author.id === auth.currentUser.uid && (
+              <button onClick={()=>{deletPost(data.id)}}>
+              <FaBitbucket/></button>
+              )}
           </nav>
           <div className='w-full h-auto p-3'>
               <div className='w-full h-auto flex flex-col items-start'>

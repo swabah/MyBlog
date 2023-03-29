@@ -10,7 +10,7 @@ import { FaSignInAlt } from "react-icons/fa";
 
 
 function App() {
-  const [IsAuth,setIsAuth] = useState(false)
+  const [IsAuth,setIsAuth] = useState(localStorage.getItem('IsAuth'))
 
 
   const signUserOut = () =>{
@@ -36,7 +36,7 @@ function App() {
          </div>
       </nav>
         <Routes>
-          <Route index path="/" element={<Home/>}/>
+          <Route index path="/" element={<Home IsAuth ={IsAuth}/>}/>
           <Route path="/CreatePost" element={<CreatePost IsAuth={IsAuth}/>}/>
           <Route path="/Login" element={<Auth setIsAuth={setIsAuth}/>}/>
         </Routes>
