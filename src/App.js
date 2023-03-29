@@ -6,6 +6,7 @@ import './App.css'
 import { useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "./Firebase/firbase-config";
+import { FaSignInAlt } from "react-icons/fa";
 
 
 function App() {
@@ -22,15 +23,17 @@ function App() {
   return (
     <>
      <Router>
-      <nav className="w-full h-24 bg-black  flex items-center justify-center text-xl font-semibold shadow-lg text-white drop-shadow-lg space-x-6">
+      <nav className="w-full h-16 lg:h-24 px-3 bg-black  flex justify-center  text-base md:text-lg font-semibold shadow-lg text-white drop-shadow-lg space-x-6">
+        <div className="w-full md:w-[600px]  flex items-center justify-between h-full">
         <Link to='/'>Home</Link>
-        {!IsAuth ? ( <Link to='/Login'>Log in</Link> )
+        {!IsAuth ? ( <Link className="flex items-center" to='/Login'> <span className="pr-2"> Log in </span><FaSignInAlt/></Link> )
         : (
           <>
              <Link to='/createpost'>Create Post</Link>
-             <button onClick={signUserOut}>Log Out</button>
+             <button onClick={signUserOut} className="flex items-center" > <span className="pr-2"> Log Out </span><FaSignInAlt/></button>
           </> 
          )}
+         </div>
       </nav>
         <Routes>
           <Route index path="/" element={<Home/>}/>

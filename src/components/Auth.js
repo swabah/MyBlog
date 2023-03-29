@@ -31,7 +31,7 @@ export const Auth = ({setIsAuth})=>{
           <div className=" h-full md:px-2  md:py-12 w-auto ">
             <div
               className=" flex h-full items-center justify-center">
-              <div className="md:w-8/12 lg:ml-6 lg:w-6/12 border-2 pt-12  p-4 md:p-16 bg-gray-200 h-full w-full md:rounded-lg">
+              <div className="md:w-10/12 lg:ml-6 lg:w-7/12 xl:w-5/12 border-2 pt-12  p-4 md:p-16 bg-gray-200 h-full w-full md:rounded-lg">
                 <form>
                    <div className="relative mb-6" data-te-input-wrapper-init>
                     <label
