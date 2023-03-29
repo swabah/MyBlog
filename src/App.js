@@ -10,7 +10,7 @@ import { FaSignInAlt } from "react-icons/fa";
 
 
 function App() {
-  const [IsAuth,setIsAuth] = useState(localStorage.getItem('IsAuth'))
+  const [IsAuth,setIsAuth] = useState(localStorage.getItem("IsAuth"))
 
 
   const signUserOut = () =>{
