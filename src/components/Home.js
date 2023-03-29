@@ -29,7 +29,7 @@ function Home({IsAuth}) {
             <Link to='/createpost'>
             <div className='cursor-pointer font-light'><FaPlus/></div>
             </Link>
-            <div>
+            <div className='text-red-700 active:text-red-400 hover:text-red-400'>
             {IsAuth && post.author.id === auth.currentUser.uid && (
               <button onClick={()=>{deletPost(post.id)}}>
               <FaBitbucket/></button>
