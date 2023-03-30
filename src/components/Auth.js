@@ -1,6 +1,6 @@
 import { auth,googleProvider } from '../Firebase/firbase-config';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export const Auth = ({setIsAuth})=>{
@@ -20,20 +20,20 @@ export const Auth = ({setIsAuth})=>{
     console.log(auth?.currentUser?.email);
 
     const signIn = () =>{
-        createUserWithEmailAndPassword(auth ,email ,password)
+        createUserWithEmailAndPassword(auth ,email ,password )
         localStorage.setItem("IsAuth",true)
         navigate('/')
         setIsAuth(true)
     }
 
     return(
-        <section className="h-full w-full bg-gray-200 md:bg-gray-100">
+        <section className="h-screen w-full bg-gray-200 md:bg-gray-100">
           <div className=" h-full md:px-2  md:py-12 w-auto ">
             <div
               className=" flex h-full items-center justify-center">
-              <div className="md:w-10/12 lg:ml-6 lg:w-7/12 xl:w-5/12 border-2 pt-12  p-4 md:p-16 bg-gray-200 h-full w-full md:rounded-lg">
-                <form>
-                   <div className="relative mb-6" data-te-input-wrapper-init>
+              <div className="md:w-10/12 lg:ml-6 lg:w-7/12 xl:w-5/12 border-2 pt-12  p-4 md:p-16 bg-gray-200 h-screen md:h-auto w-full md:rounded-lg">
+                {/* <form>
+                   <div className="relative mb-4" data-te-input-wrapper-init>
                     <label
                       className="font-semibold capitalize mb-0 max-w-[90%]  truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out "
                       >Email address
@@ -44,8 +44,7 @@ export const Auth = ({setIsAuth})=>{
                       className=" ring-1 mt-1 focus:ring-gray-200 focus:ring-2 ring-gray-100 bg-gray-100  rounded border-none w-full outline-none"
                       onChange={(e)=>setemail(e.target.value)} value={email} placeholder="Enter Your Email" />
                   </div>
-            
-                  <div className="relative mb-6" data-te-input-wrapper-init>
+                  <div className="relative mb-16" data-te-input-wrapper-init>
                     <label
                       className="font-semibold capitalize mb-0 max-w-[90%]  truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out "
                       >Password
@@ -56,7 +55,7 @@ export const Auth = ({setIsAuth})=>{
                       onChange={(e)=>setpassword(e.target.value)} value={password} placeholder="enter password" />
                   </div>
             
-                  {/* <div className="mb-6 w-full flex items-center justify-between">
+                  <div className="mb-6 w-full flex items-center justify-between">
                     <div className="mb-[0.125rem] flex items-center  min-h-[1.5rem] pl-[1.5rem]">
                       <input
                         required
@@ -74,25 +73,25 @@ export const Auth = ({setIsAuth})=>{
                     <h2
                       className="text-primary text-sm md:text-base transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
                       >Forgot password?</h2>
-                  </div> */}
+                  </div>
             
                   <button
                     type="submit"
                     onClick={signIn}
-                    className="inline-block w-full text-black font-semibold rounded bg-primary px-7 pt-3 pb-2.5 text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                    className="inline-block w-full text-black font-semibold rounded bg-gray-300 px-7 pt-3 pb-2.5 text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
                     >
                         Sign in
                   </button>
-                  <div
-                    className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+                </form> */}
+                  {/* <div
+                    className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-400 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-400">
                     <p
                       className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
                       OR
                     </p>
-                  </div>
-                </form>
+                  </div> */}
                   <button
-                    className="mb-3 w-full text-black font-semibold items-center justify-center rounded bg-primary px-7 pt-3 pb-2.5 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                    className="mb-3 w-full text-black font-semibold items-center justify-center rounded bg-gray-300 px-7 pt-3 pb-2.5 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
                     onClick={signInWithGoogle}
                     >
                     Continue with Google
