@@ -1,36 +1,61 @@
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection ,serverTimestamp,Timestamp} from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { auth, db } from '../Firebase/firbase-config'
+import { auth, db, storage } from '../Firebase/firbase-config'
+import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage'
+import { v4 } from "uuid";
 
 function CreatePost({IsAuth}) {
   const [Heading , setHeading ] = useState('')
   const [PostText , setPostText ] = useState('')
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUrls, setImageUrls] = useState({});
 
   let navigate = useNavigate()
 
-  const postCollectionRef = collection(db, 'posts')
-
+  
   const createpost = async () =>{
-    await addDoc(postCollectionRef,{
-      Heading,
-      PostText,
-      author :{name: auth.currentUser.displayName , id : auth.currentUser.uid}
-    })
-    navigate('/')
+    try {
+       if (imageUpload == null) return;
+       const postCollectionRef = collection(db, 'posts')
+       const imageRef = ref(storage, `blog-img/${imageUpload.name + v4()}`);
+       await uploadBytes(imageRef, imageUpload).then((snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+         getDownloadURL(snapshot.ref).then((url) => {
+           addDoc(postCollectionRef,{
+            Heading,
+            PostText,
+            author :{name: auth.currentUser.displayName , id : auth.currentUser.uid , img : auth.currentUser.photoURL},
+            image : url,
+            created : serverTimestamp()
+          })
+           setImageUrls(url);
+         });
+       });
+      navigate('/')
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     if (!IsAuth) {
       navigate('/login')
     }
+
   }, []);
 
   return (
     <div className='w-full h-full flex items-center justify-center py-20'>
        <div className='p-5 lg:p-12 rounded border w-[600px] h-full'>
         <div className='w-full h-auto flex flex-col items-start'>
-          <label htmlFor="name" className='drop-shadow-md text-lg font-semibold '>Heading</label>
+          <label htmlFor="name" className='drop-shadow-md text-lg font-semibold '>Image Uplaod</label>
+          <input type="file" required onChange={(event) => {setImageUpload(event.target.files[0]);}} placeholder='Type Here' className=' ring-1 mt-2 focus:ring-gray-200 focus:ring-2 ring-gray-100 rounded border-none w-full outline-none'/>
+        </div>
+        <div className='w-full h-auto flex flex-col items-start'>
+          <label htmlFor="name" className='drop-shadow-md text-lg font-semibold mt-3'>Heading</label>
           <input type="text" required onChange={(e)=>setHeading(e.target.value)} placeholder='Type Here' className=' ring-1 mt-1 focus:ring-gray-200 focus:ring-2 ring-gray-100 rounded border-none w-full outline-none'/>
         </div>
         <div className='w-full h-auto flex flex-col items-start'>

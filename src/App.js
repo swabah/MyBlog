@@ -23,9 +23,10 @@ function App() {
   return (
     <>
      <Router>
-      <nav className="w-full h-16 lg:h-24 px-3 bg-black  flex justify-center  text-base md:text-lg font-semibold shadow-lg text-white drop-shadow-lg space-x-6">
-        <div className="w-full md:w-[600px]  flex items-center justify-between h-full">
+      <nav className="w-full h-16 px-5 bg-black  flex justify-between  text-base md:text-lg font-medium shadow-lg text-white drop-shadow-lg space-x-6">
+        <div className="w-full  flex items-center justify-between h-full">
         <Link to='/'>Home</Link>
+        <div className="space-x-5 flex items-center ">
         {!IsAuth ? ( <Link className="flex items-center" to='/Login'> <span className="pr-2"> Log in </span><FaSignInAlt/></Link> )
         : (
           <>
@@ -33,6 +34,7 @@ function App() {
              <button onClick={signUserOut} className="flex items-center" > <span className="pr-2"> Log Out </span><FaSignInAlt/></button>
           </> 
          )}
+        </div>
          </div>
       </nav>
         <Routes>
