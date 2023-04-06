@@ -4,17 +4,21 @@ import { useNavigate } from 'react-router-dom'
 import { auth, db, storage } from '../Firebase/firbase-config'
 import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage'
 import { v4 } from "uuid";
+import { CgSpinner } from 'react-icons/cg'
 
 function CreatePost({IsAuth}) {
   const [Heading , setHeading ] = useState('')
   const [PostText , setPostText ] = useState('')
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState({});
+  const [loading, setLoading] = useState(false);
 
   let navigate = useNavigate()
 
   
   const createpost = async () =>{
+    setLoading(true);
+
     try {
        if (imageUpload == null) return;
        const postCollectionRef = collection(db, 'posts')
@@ -22,18 +26,22 @@ function CreatePost({IsAuth}) {
        await uploadBytes(imageRef, imageUpload).then((snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
+        const date = new Date()
+        const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const formattedTime = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
          getDownloadURL(snapshot.ref).then((url) => {
            addDoc(postCollectionRef,{
             Heading,
             PostText,
             author :{name: auth.currentUser.displayName , id : auth.currentUser.uid , img : auth.currentUser.photoURL},
             image : url,
-            created : serverTimestamp()
+            created : {date :formattedDate , time : formattedTime}
           })
            setImageUrls(url);
          });
        });
       navigate('/')
+     setLoading(false);
 
     } catch (error) {
       console.log(error);
@@ -64,8 +72,11 @@ function CreatePost({IsAuth}) {
         </div>
         <button 
         onClick={createpost}
-        className=" w-full mt-5 text-black font-semibold items-center justify-center rounded bg-primary px-7 pt-3 pb-2.5 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-        >Submit Button</button>
+        className=" w-full mt-5 text-black font-semibold flex items-center space-x-2 justify-center rounded bg-primary px-7 pt-3 pb-2.5 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+        >
+          {loading && (  <CgSpinner size={20} className="mt-1 animate-spin" />  )}
+          <span> Submit Button</span>
+        </button>
        </div>
     </div>
   )
