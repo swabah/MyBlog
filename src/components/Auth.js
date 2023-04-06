@@ -29,25 +29,25 @@ export const Auth = ({setIsAuth})=>{
         localStorage.setItem("IsAuth",true)
         navigate('/')
         setIsAuth(true)
-        // toast.success("Signed Completly!");
+        toast.success("Signed Completly!");
     }
 
     return(
-        <section className="h-auto w-full bg-gray-200 md:bg-gray-100">
-          <div className=" h-full md:px-2  md:py-12 w-auto ">
+        <section className="h-screen md:h-full w-full bg-gray-200 md:bg-gray-100">
           <Toaster toastOptions={{ duration: 2000 }} />
+          <div className=" h-full md:px-2  md:py-12 w-auto ">
             <div
               className=" flex h-full items-center justify-center">
               <div className="md:w-10/12 lg:ml-6 lg:w-7/12 xl:w-5/12 border-2 pt-5 md:pt-12  p-3 md:p-16 bg-gray-200 h-full md:h-auto w-full md:rounded-lg">
-                  {/* <OtpPhone setIsAuth={setIsAuth}/> */}
-                  {/* <div
+                  <OtpPhone setIsAuth={setIsAuth}/>
+                  <div
                     className="flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-400 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-400">
                     <p
                       className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
                       OR
                     </p>
-                  </div> */}
-                {/* <form >
+                  </div>
+                <form >
                    <div className="relative mt-4 md:mt-10 mb-4" >
                     <label
                       className="font-semibold capitalize mb-0 max-w-[90%]  truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out "
@@ -61,7 +61,7 @@ export const Auth = ({setIsAuth})=>{
                   </div>
                   <div className="relative mb-6" >
                     <label
-                      className="font-semibold capitalize mb-0 max-w-[90%]  truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out "
+                      className="font-semibold capitalize mb-0 max-w-[90%]  truncate pt-[0.17rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out "
                       >Password
                     </label>
                     <input 
@@ -76,7 +76,7 @@ export const Auth = ({setIsAuth})=>{
                     >
                         Sign in
                   </button>
-                </form> */}
+                </form>
                   <div
                     className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-400 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-400">
                     <p

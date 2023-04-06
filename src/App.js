@@ -4,42 +4,22 @@ import Home from "./components/Home";
 import CreatePost from "./components/CreatePost";
 import './App.css'
 import { useState } from "react";
-import { signOut } from "firebase/auth";
-import { auth } from "./Firebase/firbase-config";
-import { FaSignInAlt } from "react-icons/fa";
+import MyBlogs from "./components/MyBlogs";
+import Navbar from "./components/Navbar";
 
 
 function App() {
   const [IsAuth,setIsAuth] = useState(localStorage.getItem("IsAuth"))
 
 
-  const signUserOut = () =>{
-    signOut(auth).then(()=>{
-      localStorage.clear()
-      setIsAuth(false)
-      window.location.pathname = '/login'
-    })
-  }
   return (
     <>
      <Router>
-      <nav className="w-full h-16 px-5 bg-black  flex justify-between  text-base md:text-lg font-medium shadow-lg text-white drop-shadow-lg space-x-6">
-        <div className="w-full  flex items-center justify-between h-full">
-        <Link to='/'>Home</Link>
-        <div className="space-x-5 flex items-center ">
-        {!IsAuth ? ( <Link className="flex items-center" to='/Login'> <span className="pr-2"> Log in </span><FaSignInAlt/></Link> )
-        : (
-          <>
-             <Link to='/createpost'>Create Post</Link>
-             <button onClick={signUserOut} className="flex items-center" > <span className="pr-2"> Log Out </span><FaSignInAlt/></button>
-          </> 
-         )}
-        </div>
-         </div>
-      </nav>
+      <Navbar setIsAuth={setIsAuth} IsAuth ={IsAuth}/>
         <Routes>
           <Route index path="/" element={<Home IsAuth ={IsAuth}/>}/>
           <Route path="/CreatePost" element={<CreatePost IsAuth={IsAuth}/>}/>
+          <Route path="/MyBlogs" element={<MyBlogs IsAuth={IsAuth}/>}/>
           <Route path="/Login" element={<Auth setIsAuth={setIsAuth}/>}/>
         </Routes>
      </Router>

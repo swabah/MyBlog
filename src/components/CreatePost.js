@@ -52,7 +52,6 @@ function CreatePost({IsAuth}) {
     if (!IsAuth) {
       navigate('/login')
     }
-
   }, []);
 
   return (
@@ -72,10 +71,9 @@ function CreatePost({IsAuth}) {
         </div>
         <button 
         onClick={createpost}
-        className=" w-full mt-5 text-black font-semibold flex items-center space-x-2 justify-center rounded bg-primary px-7 pt-3 pb-2.5 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+        className={` w-full mt-5 text-black font-semibold flex items-center space-x-2 justify-center ${loading && 'bg-opacity-60 mt-3'} rounded bg-primary px-7 pt-3 pb-2.5 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]`}
         >
-          {loading && (  <CgSpinner size={20} className="mt-1 animate-spin" />  )}
-          <span> Submit Button</span>
+          {loading ? (  <CgSpinner size={25} className="mt-1 animate-spin" />  ) : (<span> Submit Button</span>)}
         </button>
        </div>
     </div>

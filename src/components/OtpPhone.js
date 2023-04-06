@@ -79,7 +79,7 @@ const OtpPhone = ({setIsAuth}) => {
   }
 
   return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-auto flex items-center justify-center">
         <Toaster toastOptions={{ duration: 4000 }} />
         <div id="recaptcha-container"></div>
           <div className="w-full flex flex-col gap-4 rounded-lg py-4">
