@@ -3,7 +3,7 @@ import {BrowserRouter as Router , Routes , Route, Link, useNavigate} from 'react
 import Home from "./components/Home";
 import CreatePost from "./components/CreatePost";
 import './App.css'
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import MyBlogs from "./components/MyBlogs";
 import Navbar from "./components/Navbar";
 
@@ -11,6 +11,18 @@ import Navbar from "./components/Navbar";
 function App() {
   const [IsAuth,setIsAuth] = useState(localStorage.getItem("IsAuth"))
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6689490026355095';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    document.head.appendChild(script);
+
+    return () => {
+      // Cleanup function: Remove the script when the component unmounts
+      document.head.removeChild(script);
+    };
+  }, []);
 
   return (
     <>
